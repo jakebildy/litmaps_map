@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Litmaps Map 0.5.1</title>
+<title>Litmaps Map 0.6.0</title>
 <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
 <link href="https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.css" rel="stylesheet">
 <script src="https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.js"></script>
@@ -33,6 +33,27 @@ const layers = map.getStyle().layers;
 const labelLayerId = layers.find(
 (layer) => layer.type === 'symbol' && layer.layout['text-field']
 ).id;
+
+
+map.addSource('mapbox-dem', {
+'type': 'raster-dem',
+'url': 'mapbox://mapbox.mapbox-terrain-dem-v1',
+'tileSize': 512,
+'maxzoom': 14
+});
+// add the DEM source as a terrain layer 
+map.setTerrain({ 'source': 'mapbox-dem', 'exaggeration': 1.0 });
+ 
+// add a sky layer that will show when the map is highly pitched
+map.addLayer({
+'id': 'sky',
+'type': 'sky',
+'paint': {
+'sky-type': 'atmosphere',
+'sky-atmosphere-sun': [0.0, 0.0],
+'sky-atmosphere-sun-intensity': 15
+}
+});
  
 // The 'building' layer in the Mapbox Streets
 // vector tileset contains building height data
@@ -74,6 +95,9 @@ map.addLayer(
 },
 labelLayerId
 );
+
+
+
 });
 	
 
