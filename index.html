@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Litmaps Map 0.3.0</title>
+<title>Litmaps Map 0.3.1</title>
 <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
 <link href="https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.css" rel="stylesheet">
 <script src="https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.js"></script>
@@ -16,35 +16,6 @@ body { margin: 0; padding: 0; }
 <script>
 	mapboxgl.accessToken = 'pk.eyJ1IjoibGl0bWFwcyIsImEiOiJja3RzeGxqNjcxa24xMzJvOWpqOXhtMXpmIn0.JFB9Qnrd0Jl59Z7IWyUekg';
 	
-	const geojson = {
-		'type': 'FeatureCollection',
-		'features': [
-		{
-		'type': 'Feature',
-		'geometry': {
-		'type': 'Point',
-		'coordinates': [-77.032, 38.913]
-		},
-		'properties': {
-		'title': 'LitEvent!',
-		'date': 'May 24', 
-		'description': 'Washington, D.C.'
-		}
-		},
-		{
-		'type': 'Feature',
-		'geometry': {
-		'type': 'Point',
-		'coordinates': [-122.414, 37.776]
-		},
-		'properties': {
-		'title': 'LitEvent 2',
-		'date': 'Aug 3', 
-		'description': 'San Francisco, California'
-		}
-		}
-		]
-	};
 	
 const map = new mapboxgl.Map({
 style: 'mapbox://styles/mapbox/dark-v10',
@@ -105,28 +76,6 @@ labelLayerId
 );
 });
 	
-	// add markers to map
-for (const { geometry, properties } of geojson.features) {
-// create a HTML element for each feature
-const el = document.createElement('div');
-el.className = 'marker';
-el.innerHTML = `<div>` +  
-	// `<h1 style="font-size:13px;color:orange;text-align:center;margin-bottom:0;">${properties.date}</h1>` + 
-	// `<h1 style="font-size:13px;color:white;text-align:center;margin-top:0;margin-bottom:0;">${properties.title}</h1>` + 
-	`<h1 style="font-size:30px;text-align:center;margin-top: 0;">🔥</h1>` +
-	`<div>`;
- 
-// make a marker for each feature and add it to the map
-new mapboxgl.Marker(el)
-.setLngLat(geometry.coordinates)
-.setPopup(
-new mapboxgl.Popup({ offset: 25}) // add popups
-.setHTML(
-`<h3>${properties.title}</h3><p>${properties.date}</p>`
-)
-)
-.addTo(map);
-}
 
 
 function loadLitEvent(lat, lng, name, date) {
