@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Litmaps Map 0.2.3</title>
+<title>Litmaps Map 0.2.4</title>
 <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
 <link href="https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.css" rel="stylesheet">
 <script src="https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.js"></script>
@@ -133,6 +133,15 @@ alert("This is an alert");
 function loadLitEvent(lat, lng) {
    console.log("LOADING LIT EVENT");
    alert("Loading lit event!");
+
+   const el = document.createElement('div');
+	el.className = 'marker';
+	el.innerHTML = `<div>` +  
+		// `<h1 style="font-size:13px;color:orange;text-align:center;margin-bottom:0;">${properties.date}</h1>` + 
+		// `<h1 style="font-size:13px;color:white;text-align:center;margin-top:0;margin-bottom:0;">${properties.title}</h1>` + 
+		`<h1 style="font-size:30px;text-align:center;margin-top: 0;">🔥</h1>` +
+		`<div>`;
+ 
    new mapboxgl.Marker(el)
 	.setLngLat([lat, lng])
 	.setPopup(
