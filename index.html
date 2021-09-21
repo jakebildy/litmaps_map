@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Litmaps Map 0.4.0</title>
+<title>Litmaps Map 0.5.0</title>
 <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
 <link href="https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.css" rel="stylesheet">
 <script src="https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.js"></script>
@@ -120,6 +120,16 @@ function loadSuggestedEvent(lat, lng, name, location, emoji) {
 	)
 	)
 	.addTo(map);
+}
+
+function goToLocation(lat, lng) {
+	map.flyTo({
+		center: [
+		lng,
+		lat
+		],
+		essential: true // this animation is considered essential with respect to prefers-reduced-motion
+	});
 }
 
 </script>
