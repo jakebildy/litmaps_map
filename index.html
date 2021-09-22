@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Litmaps Map 0.7.2</title>
+<title>Litmaps Map 0.8.0</title>
 <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
 <link href="https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.css" rel="stylesheet">
 <script src="https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.js"></script>
@@ -152,7 +152,7 @@ function goToLocation(lat, lng) {
 	});
 }
 
-
+const userMarker;
 
 function setUserLocation(imgURL, lat, lng) {
 	const el = document.createElement('div');
@@ -161,13 +161,13 @@ function setUserLocation(imgURL, lat, lng) {
 		`<img src=` + imgURL + ` height="45" width="45" style="display: block;border-radius: 200px;box-sizing: border-box;background-color: #DDD;border: 3px solid #cfd8dc;"></img>` +
 		`<div>`;
  
-   new mapboxgl.Marker(el)
+   userMarker = new mapboxgl.Marker(el)
 	.setLngLat([lng, lat])
 	.addTo(map);
 }
 
 function updateUserLocation(lat, lng) {
-//TODO
+	userMarker.setLngLat([lng, lat]);
 }
 
 </script>
