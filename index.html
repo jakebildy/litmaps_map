@@ -108,8 +108,8 @@ function loadLitEvent(lat, lng, name, date) {
    const el = document.createElement('div');
 	el.className = 'marker';
 	el.innerHTML = `<div>` +  
-		`<h1 style="font-size:13px;color:orange;text-align:center;margin-bottom:0;">${properties.date}</h1>` + 
-		`<h1 style="font-size:13px;color:white;text-align:center;margin-top:0;margin-bottom:0;">${properties.title}</h1>` + 
+		`<h1 style="font-size:13px;color:orange;text-align:center;margin-bottom:0;">${name}</h1>` + 
+		`<h1 style="font-size:13px;color:white;text-align:center;margin-top:0;margin-bottom:0;">${date}</h1>` + 
 		`<h1 style="font-size:30px;text-align:center;margin-top: 0;">🔥</h1>` +
 		`<div>`;
  
@@ -124,8 +124,8 @@ function loadSuggestedEvent(lat, lng, name, location, emoji) {
    const el = document.createElement('div');
 	el.className = 'marker';
 	el.innerHTML = `<div>` +  
-		`<h1 style="font-size:13px;color:orange;text-align:center;margin-bottom:0;">${properties.date}</h1>` + 
-		`<h1 style="font-size:13px;color:white;text-align:center;margin-top:0;margin-bottom:0;">${properties.title}</h1>` + 
+		`<h1 style="font-size:13px;color:orange;text-align:center;margin-bottom:0;">${name}</h1>` + 
+		`<h1 style="font-size:13px;color:white;text-align:center;margin-top:0;margin-bottom:0;">${location}</h1>` + 
 		`<h1 style="font-size:30px;text-align:center;margin-top: 0;">`+emoji+`</h1>` +
 		`<div>`;
  
