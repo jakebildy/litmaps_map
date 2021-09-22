@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Litmaps Map 0.6.7</title>
+<title>Litmaps Map 0.7.0</title>
 <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
 <link href="https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.css" rel="stylesheet">
 <script src="https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.js"></script>
@@ -113,9 +113,14 @@ function loadLitEvent(lat, lng, name, date) {
 		`<h1 style="font-size:30px;text-align:center;margin-top: 0;">🔥</h1>` +
 		`<div>`;
  
-   new mapboxgl.Marker(el)
+   const marker = new mapboxgl.Marker(el)
 	.setLngLat([lng, lat])
 	.addTo(map);
+
+
+	marker.getElement().addEventListener('click', () => {
+		window.PRINT.postMessage('Hello from JS');
+        });
 }
 
 function loadSuggestedEvent(lat, lng, name, location, emoji) {
