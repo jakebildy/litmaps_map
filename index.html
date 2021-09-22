@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Litmaps Map 0.6.3</title>
+<title>Litmaps Map 0.6.4</title>
 <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
 <link href="https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.css" rel="stylesheet">
 <script src="https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.js"></script>
@@ -116,12 +116,12 @@ function loadLitEvent(lat, lng, name, date) {
    new mapboxgl.Marker(el)
 	.setLngLat([lng, lat])
 	.setPopup(
-	new mapboxgl.Popup({ offset: 25}) // add popups
+	new mapboxgl.Popup({ offset: 25, closeOnClick: false, closeButton: false}) // add popups
 	.setHTML(
 	`<h3>` + name + `</h3><p>` + date + `</p>`
 	)
 	)
-	.addTo(map);
+	.addTo(map).togglePopup();
 }
 
 function loadSuggestedEvent(lat, lng, name, location, emoji) {
@@ -138,12 +138,12 @@ function loadSuggestedEvent(lat, lng, name, location, emoji) {
    new mapboxgl.Marker(el)
 	.setLngLat([lng, lat])
 	.setPopup(
-	new mapboxgl.Popup({ offset: 25}) // add popups
+	new mapboxgl.Popup({ offset: 25, closeOnClick: false, closeButton: false}) // add popups
 	.setHTML(
 	`<h3>` + name + `</h3><p>` + location + `</p>`
 	)
 	)
-	.addTo(map);
+	.addTo(map).togglePopup();
 }
 
 function goToLocation(lat, lng) {
