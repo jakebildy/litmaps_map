@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Litmaps Map 0.7.0</title>
+<title>Litmaps Map 0.7.1</title>
 <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
 <link href="https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.css" rel="stylesheet">
 <script src="https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.js"></script>
@@ -102,7 +102,7 @@ labelLayerId
 	
 
 
-function loadLitEvent(lat, lng, name, date) {
+function loadLitEvent(lat, lng, name, date, id) {
    console.log("LOADING LIT EVENT");
 
    const el = document.createElement('div');
@@ -119,7 +119,7 @@ function loadLitEvent(lat, lng, name, date) {
 
 
 	marker.getElement().addEventListener('click', () => {
-		window.PRINT.postMessage('Hello from JS');
+		window.LITEVENT.postMessage(id);
         });
 }
 
