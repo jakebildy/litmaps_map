@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Litmaps Map 0.9.0</title>
+<title>Litmaps Map 0.9.1</title>
 <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
 <link href="https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.css" rel="stylesheet">
 <script src="https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.js"></script>
@@ -146,11 +146,13 @@ map.addSource("addresses", {
 
                 var el = document.createElement('div');
                 el.className = 'mapCluster';
-                el.style.width = '60px';
-                el.style.height = '60px';
+                el.style.width = '40px';
+                el.style.height = '30px';
                 el.style.textAlign = 'center';
+				//l.style.fontSize = "15px";
+				el.style.paddingTop = '10px';
                 el.style.color = 'white';
-                el.style.background = '#16d3f9';
+                el.style.background = '#ff5722';
                 el.style.borderRadius = '50%';
                 el.innerText = props.point_count;
                 const marker = new mapboxgl.Marker(el).setLngLat(coords);
