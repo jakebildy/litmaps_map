@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Litmaps Map 0.9.2</title>
+<title>Litmaps Map 0.8.2</title>
 <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
 <link href="https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.css" rel="stylesheet">
 <script src="https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.js"></script>
@@ -97,141 +97,7 @@ labelLayerId
 );
 
 
-//window.LITMAP.postMessage("LOADED");
-const markerValues = {
-'type': 'FeatureCollection',
-'features': [
-{
-'type': 'Feature',
-'geometry': {
-'type': 'Point',
-'coordinates': [-77.032, 38.913]
-},
-'properties': {
-'title': 'Mapbox',
-'description': 'Washington, D.C.'
-}
-},
-{
-'type': 'Feature',
-'geometry': {
-'type': 'Point',
-'coordinates': [-122.414, 37.776]
-},
-'properties': {
-'title': 'Mapbox',
-'description': 'San Francisco, California'
-}
-}
-]
-};
-
-map.addSource("addresses", {
-        type: "geojson",
-        data: markerValues,  //"https://docs.mapbox.com/mapbox-gl-js/assets/earthquakes.geojson",
-        cluster: true,
-        clusterMaxZoom: 13, // Max zoom to cluster points on
-        clusterRadius: 50 // Radius of each cluster when clustering points (defaults to 50)
-    });
-    
-    map.addLayer({
-        id: "clusters",
-        type: "circle",
-        source: "addresses",
-        filter: ["has", "point_count"],
-        paint: {
-            "circle-radius": 0
-        }
-    });
-
-
-
-
-    // Store IDs and cluster/marker HTMLElements
-    const markers = new Map();
-
-    function updateMarkers(){
-		//alert("UPDATE MARKERS");
-        const features = map.querySourceFeatures('addresses');
-        const keepMarkers = [];
-
-        for (let i = 0; i < features.length; i++) {
-            const coords = features[ i ].geometry.coordinates;
-            const props = features[ i ].properties;
-            const featureID = features[ i ].id;
-            
-            const clusterID = props.cluster_id || null;
-
-            if (props.cluster && markers.has('cluster_'+clusterID)) {
-
-                //Cluster marker is already on screen
-                keepMarkers.push('cluster_'+clusterID);
-
-            } else if (props.cluster) {
-
-                //This feature is clustered, create an icon for it and use props.point_count for its count
-
-                var el = document.createElement('div');
-                el.className = 'mapCluster';
-                el.style.width = '40px';
-                el.style.height = '30px';
-                el.style.textAlign = 'center';
-				//l.style.fontSize = "15px";
-				el.style.paddingTop = '10px';
-                el.style.color = 'white';
-                el.style.background = '#ff5722';
-                el.style.borderRadius = '50%';
-                el.innerText = props.point_count;
-                const marker = new mapboxgl.Marker(el).setLngLat(coords);
-                marker.addTo(map);
-                keepMarkers.push('cluster_'+featureID);
-                markers.set('cluster_'+clusterID,el);
-                
-            } else if (markers.has(featureID)) {
-
-                //Feature marker is already on screen
-                keepMarkers.push(featureID);
-
-            } else {
-                
-                //Feature is not clustered and has not been created, create an icon for it
-				const el = document.createElement('div');
-				el.className = 'marker';
-				el.innerHTML = `<div>` +  
-					`<h1 style="font-size:13px;color:orange;text-align:center;margin-bottom:0;text-shadow:-1px -1px 0 #000,0   -1px 0 #000,1px -1px 0 #000,1px  0   0 #000,1px  1px 0 #000, 0    1px 0 #000,-1px  1px 0 #000,-1px  0   0 #000;">TEST LIT EVENT</h1>` + 
-					`<h1 style="font-size:13px;color:orange;text-align:center;margin-top:0;margin-bottom:0;text-shadow:-1px -1px 0 #000,0   -1px 0 #000,1px -1px 0 #000,1px  0   0 #000,1px  1px 0 #000, 0    1px 0 #000,-1px  1px 0 #000,-1px  0   0 #000;">MAY 24</h1>` + 
-					`<h1 style="font-size:30px;text-align:center;margin-top: 0;">🔥</h1>` +
-					`<div>`;
- 
-                const marker = new mapboxgl.Marker(el).setLngLat(coords);
-                marker.addTo(map);
-                keepMarkers.push(featureID);
-                markers.set(featureID,el);
-                
-            }
-            
-        }
-
-        //Let's clean-up any old markers. Loop through all markers
-        markers.forEach((value,key,map) => {
-            //If marker exists but is not in the keep array
-            if (keepMarkers.indexOf(key) === -1) {
-                console.log('deleting key: '+key);
-                //Remove it from the page
-                value.remove();
-                //Remove it from markers map
-                map.delete(key);
-            }
-        });
-
-    };
-
-    map.on('data', function (e) {
-		
-        if (e.sourceId !== 'addresses' || !e.isSourceLoaded) return;
-        map.on('moveend', updateMarkers); // moveend also fires on zoomend
-        updateMarkers();
-    });
+window.LITMAP.postMessage("LOADED");
 });
 	
 
@@ -260,35 +126,21 @@ function loadLitEvent(lat, lng, name, date, id) {
 function loadSuggestedEvent(lat, lng, name, location, emoji) {
    console.log("LOADING SUGGESTED EVENT");
 
-//    const el = document.createElement('div');
-// 	el.className = 'marker';
-// 	el.innerHTML = `<div>` +  
-// 		`<h1 style="font-size:13px;color:white;text-align:center;margin-bottom:0;text-shadow:-1px -1px 0 #000,0   -1px 0 #000,1px -1px 0 #000,1px  0   0 #000,1px  1px 0 #000, 0    1px 0 #000,-1px  1px 0 #000,-1px  0   0 #000;">${name}</h1>` + 
-// 		`<h1 style="font-size:13px;color:white;text-align:center;margin-top:0;margin-bottom:0;text-shadow:-1px -1px 0 #000,0   -1px 0 #000,1px -1px 0 #000,1px  0   0 #000,1px  1px 0 #000, 0    1px 0 #000,-1px  1px 0 #000,-1px  0   0 #000;">${location}</h1>` + 
-// 		`<h1 style="font-size:30px;text-align:center;margin-top: 0;">`+emoji+`</h1>` +
-// 		`<div>`;
+   const el = document.createElement('div');
+	el.className = 'marker';
+	el.innerHTML = `<div>` +  
+		`<h1 style="font-size:13px;color:white;text-align:center;margin-bottom:0;text-shadow:-1px -1px 0 #000,0   -1px 0 #000,1px -1px 0 #000,1px  0   0 #000,1px  1px 0 #000, 0    1px 0 #000,-1px  1px 0 #000,-1px  0   0 #000;">${name}</h1>` + 
+		`<h1 style="font-size:13px;color:white;text-align:center;margin-top:0;margin-bottom:0;text-shadow:-1px -1px 0 #000,0   -1px 0 #000,1px -1px 0 #000,1px  0   0 #000,1px  1px 0 #000, 0    1px 0 #000,-1px  1px 0 #000,-1px  0   0 #000;">${location}</h1>` + 
+		`<h1 style="font-size:30px;text-align:center;margin-top: 0;">`+emoji+`</h1>` +
+		`<div>`;
  
-//    const marker = new mapboxgl.Marker(el)
-// 	.setLngLat([lng, lat])
-// 	.addTo(map);
+   const marker = new mapboxgl.Marker(el)
+	.setLngLat([lng, lat])
+	.addTo(map);
 
-const features = map.querySourceFeatures('addresses');
-features.push({
-'type': 'Feature',
-'geometry': {
-'type': 'Point',
-'coordinates': [-77.032, 38.913]
-},
-'properties': {
-'title': 'Mapbox',
-'description': 'Washington, D.C.'
-}
-});
-map.getSource('addresses').setData(features);
-
-	// marker.getElement().addEventListener('click', () => {
-	// 	window.SUGGESTED_EVENT.postMessage(lat + "," + lng + "," + name);
-    //     });
+	marker.getElement().addEventListener('click', () => {
+		window.SUGGESTED_EVENT.postMessage(lat + "," + lng + "," + name);
+        });
 }
 
 function goToLocation(lat, lng) {
