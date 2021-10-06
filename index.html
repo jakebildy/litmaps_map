@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Litmaps Map 0.8.2</title>
+<title>Litmaps Map 0.9.0</title>
 <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
 <link href="https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.css" rel="stylesheet">
 <script src="https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.js"></script>
@@ -16,10 +16,14 @@ body { margin: 0; padding: 0; }
 <script>
 	mapboxgl.accessToken = 'pk.eyJ1IjoibGl0bWFwcyIsImEiOiJja3RzeGxqNjcxa24xMzJvOWpqOXhtMXpmIn0.JFB9Qnrd0Jl59Z7IWyUekg';
 	
+
+const params = new URLSearchParams(document.location.search);
+const lat = params.get("lat");
+const lng = params.get("lng");
 	
 const map = new mapboxgl.Map({
 style: 'mapbox://styles/mapbox/dark-v10',
-center: [-74.0066, 40.7135],
+center: [lng, lat],
 zoom: 15.5,
 pitch: 45,
 bearing: -17.6,
